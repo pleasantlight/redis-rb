@@ -20,13 +20,13 @@ class Redis
       def connect(host, port, timeout)
         @connection.connect(host, port, timeout)
       rescue Errno::ETIMEDOUT
-        raise Timeout::Error
+        raise Errno::ETIMEDOUT, "Unable to connect to Redis on #{host}:#{port}, connection timeout"
       end
 
       def connect_unix(path, timeout)
         @connection.connect_unix(path, timeout)
       rescue Errno::ETIMEDOUT
-        raise Timeout::Error
+        raise Errno::ETIMEDOUT, "Unable to connect to Redis on #{path}, connection timeout"
       end
 
       def disconnect
